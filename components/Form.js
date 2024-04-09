@@ -29,6 +29,17 @@ export default function Form({ onSubmit, formName, defaultData }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
+    console.log("data", data);
+    for (const element in data) {
+      if (element !== "description") {
+        const trimmedInput = data[element].trim();
+        console.log("trimmedInput", trimmedInput);
+        if (!trimmedInput) {
+          alert("Please provide proper info for all input fields");
+          return;
+        }
+      }
+    }
     onSubmit(data);
   }
 
@@ -39,12 +50,13 @@ export default function Form({ onSubmit, formName, defaultData }) {
         id="name"
         name="name"
         type="text"
-        required="true"
+        required
         defaultValue={defaultData?.name}
+        maxLength="30"
       />
       <Label htmlFor="image-url">
         Image Url(only{" "}
-        <a href="https://unsplash.com/" target="_blank">
+        <a href="https://unsplash.com/" target="_blank" rel="noreferrer">
           Unsplash
         </a>{" "}
         allowed)
@@ -53,7 +65,7 @@ export default function Form({ onSubmit, formName, defaultData }) {
         id="image-url"
         name="image"
         type="text"
-        required="true"
+        required
         defaultValue={defaultData?.image}
       />
       <Label htmlFor="location">Location</Label>
@@ -61,12 +73,13 @@ export default function Form({ onSubmit, formName, defaultData }) {
         id="location"
         name="location"
         type="text"
-        required="true"
+        required
         defaultValue={defaultData?.location}
+        maxLength="30"
       />
       <Label htmlFor="map-url">
         Map Url (only{" "}
-        <a href="https://www.google.de/maps/" target="_blank">
+        <a href="https://www.google.com/maps/" target="_blank" rel="noreferrer">
           GoogleMaps
         </a>{" "}
         allowed)
@@ -75,17 +88,17 @@ export default function Form({ onSubmit, formName, defaultData }) {
         id="map-url"
         name="mapURL"
         type="text"
-        required="true"
+        required
         defaultValue={defaultData?.mapURL}
       />
-      <Label htmlFor="description">Description</Label>
+      <Label htmlFor="description">Description (optional)</Label>
       <Textarea
         name="description"
         id="description"
         cols="30"
         rows="10"
-        required="true"
         defaultValue={defaultData?.description}
+        maxLength="300"
       ></Textarea>
       <StyledButton type="submit">
         {defaultData ? "Update place" : "Add place"}

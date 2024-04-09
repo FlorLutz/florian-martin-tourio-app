@@ -12,7 +12,9 @@ export default function CreatePlacePage() {
   const router = useRouter();
 
   async function addPlace(place) {
-    console.log("Place added (but not really...)");
+    if (place.description.trim() === "") {
+      place.description = "";
+    }
     console.log(place);
     const response = await fetch("/api/places", {
       method: "POST",
