@@ -7,8 +7,7 @@ const placeSchema = new Schema({
   image: { type: String, required: true },
   mapURL: { type: String, required: true },
   description: { type: String, default: "" },
-  comments: { type: Array, required: true },
-  //   reviews: { type: [Schema.Types.ObjectId], ref: "Review" },
+  comments: { type: [Schema.Types.ObjectId], ref: "Comments" },
 });
 const Place = mongoose.models.Place || mongoose.model("Place", placeSchema);
 export default Place;
