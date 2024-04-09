@@ -39,13 +39,21 @@ export default function Form({ onSubmit, formName, defaultData }) {
         id="name"
         name="name"
         type="text"
+        required="true"
         defaultValue={defaultData?.name}
       />
-      <Label htmlFor="image-url">Image Url</Label>
+      <Label htmlFor="image-url">
+        Image Url(only{" "}
+        <a href="https://unsplash.com/" target="_blank">
+          Unsplash
+        </a>{" "}
+        allowed)
+      </Label>
       <Input
         id="image-url"
         name="image"
         type="text"
+        required="true"
         defaultValue={defaultData?.image}
       />
       <Label htmlFor="location">Location</Label>
@@ -53,13 +61,21 @@ export default function Form({ onSubmit, formName, defaultData }) {
         id="location"
         name="location"
         type="text"
+        required="true"
         defaultValue={defaultData?.location}
       />
-      <Label htmlFor="map-url">Map Url</Label>
+      <Label htmlFor="map-url">
+        Map Url (only{" "}
+        <a href="https://www.google.de/maps/" target="_blank">
+          GoogleMaps
+        </a>{" "}
+        allowed)
+      </Label>
       <Input
         id="map-url"
         name="mapURL"
         type="text"
+        required="true"
         defaultValue={defaultData?.mapURL}
       />
       <Label htmlFor="description">Description</Label>
@@ -68,6 +84,7 @@ export default function Form({ onSubmit, formName, defaultData }) {
         id="description"
         cols="30"
         rows="10"
+        required="true"
         defaultValue={defaultData?.description}
       ></Textarea>
       <StyledButton type="submit">
