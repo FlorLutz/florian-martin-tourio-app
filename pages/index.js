@@ -23,10 +23,14 @@ const FixedLink = styled(StyledLink)`
   right: 50px;
 `;
 export default function Home() {
-  const { data } = useSWR("/api/places", { fallbackData: [] });
+  const { data, isLoading } = useSWR("/api/places", {
+    fallbackData: [],
+  });
+  console.log("places", data);
 
   return (
     <>
+      {isLoading && <p>Waiting for data</p>}
       <List role="list">
         {data.map((place) => {
           return (

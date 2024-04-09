@@ -33,12 +33,19 @@ export default function DetailsPage() {
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
-  const {
-    data: { place, comments } = {},
-    isLoading,
-    error,
-  } = useSWR(`/api/places/${id}`);
-
+  // const {
+  //   data: {
+  //     place,
+  //     // comments
+  //   } = {},
+  //   isLoading,
+  //   error,
+  const { data, isLoading, error } = useSWR(`/api/places/${id}`);
+  if (!data) {
+    return;
+  }
+  console.log(data);
+  const { comments } = data;
   if (!isReady || isLoading || error) return <h2>Loading...</h2>;
 
   function deletePlace() {
@@ -47,12 +54,12 @@ export default function DetailsPage() {
 
   return (
     <>
-      <Link href={'/'} passHref legacyBehavior>
+      <Link href={"/"} passHref legacyBehavior>
         <StyledLink justifySelf="start">back</StyledLink>
       </Link>
       <ImageContainer>
         <StyledImage
-          src={place.image}
+          src={data.image}
           priority
           fill
           sizes="(max-width: 768px) 100vw,
@@ -62,12 +69,12 @@ export default function DetailsPage() {
         />
       </ImageContainer>
       <h2>
-        {place.name}, {place.location}
+        {data.name}, {data.location}
       </h2>
-      <Link href={place.mapURL} passHref legacyBehavior>
+      <Link href={data.mapURL} passHref legacyBehavior>
         <StyledLocationLink>Location on Google Maps</StyledLocationLink>
       </Link>
-      <p>{place.description}</p>
+      <p>{data.description}</p>
       <ButtonContainer>
         <Link href={`/places/${id}/edit`} passHref legacyBehavior>
           <StyledLink>Edit</StyledLink>
@@ -76,7 +83,7 @@ export default function DetailsPage() {
           Delete
         </StyledButton>
       </ButtonContainer>
-      <Comments locationName={place.name} comments={comments} />
+      <Comments locationName={data.name} comments={comments} />
     </>
   );
 }
