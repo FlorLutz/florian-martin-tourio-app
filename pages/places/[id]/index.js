@@ -88,7 +88,7 @@ export default function DetailsPage() {
           Delete
         </StyledButton>
       </ButtonContainer>
-      <Comments locationName={data.name} comments={comments} />
+      <Comments locationName={data.name} comments={comments} id={id} />
     </>
   );
 }
